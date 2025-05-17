@@ -1,5 +1,5 @@
 
-####
+#### register
 POST http://localhost:3000/register
 content-type: application/json
 
@@ -9,3 +9,14 @@ content-type: application/json
     "email": "gordo@teton.com",
     "anonimato": true
 }
+
+
+#### login 
+POST http://localhost:3000/login
+content-type: application/json
+
+{
+    "email": "gordo@teton.com",
+    "password": "putoelque"
+}
+

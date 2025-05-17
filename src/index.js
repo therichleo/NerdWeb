@@ -10,19 +10,31 @@ app.get('/', (req, res) => {
     res.send('Hola mundo')
 })
 
-app.post('/login', (req,res) => {})
-app.post('/register', (req,res) => {
+app.post('/login', async (req,res) => {
+    const { email, password } = req.body
+
+    try{
+        const user = await UserRepository.login({ email, password })
+        res.send({ user })
+    } catch(error){
+        res.status(401).send(error.message)
+    }
+})
+
+
+app.post('/register', async (req,res) => {
     const { username, password, email, anonimato } = req.body
     console.log(req.body)
 
     try{ 
-        const id = UserRepository.create({ username, password, email, anonimato })
+        const id = await UserRepository.create({ username, password, email, anonimato })
         res.send({id})
     } catch(error){
         //Lo mejor no es mandar el error entero, si no aclarar mejor (proximamente)
         res.status(400).send(error.message)
     }
 })
+
 app.post('/logout', (req,res) => {})
 app.get('/protected', (req,res) => {})
 
