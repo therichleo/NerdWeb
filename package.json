@@ -3,5 +3,10 @@
     "express": "^5.1.0",
     "express-handlebars": "^8.0.1",
     "nodejs": "^0.0.0"
+  },
+  "type": "module",
+  
+  "eslintConfig": {
+    "extends":"standard"
   }
 }

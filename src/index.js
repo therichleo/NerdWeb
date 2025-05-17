@@ -1,14 +1,29 @@
-const express = require('express')
+import express from 'express'
+import { PORT } from './config.js'
+
 const app = express()
 
-app.use((req,  res) => {
-    res.status(404).send('<h1>404</>')
-})
 
 app.get('/', (req, res) => {
     res.send('Hola mundo')
 })
 
-server.listen(0, () => {
-    console.log(`Server listening on port http://localhost:${server.address().port}`)
+app.post('/login', (req,res) => {
+    res.json({ user : 'therichleo' })
 })
+app.post('/register', (req,res) => {})
+app.post('/logout', (req,res) => {})
+app.get('/protected', (reeq,res) => {})
+
+app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`)
+})
+
+
+
+
+
+app.use((req,  res) => {
+    res.status(404).send('<h1>404</>')
+})
+
