@@ -1,3 +1,11 @@
-### Create item
-POST http://localhost:3000/login
 
+####
+POST http://localhost:3000/register
+content-type: application/json
+
+{
+    "username": "jotajota",
+    "password": "putoelque",
+    "email": "gordo@teton.com",
+    "anonimato": true
+}
