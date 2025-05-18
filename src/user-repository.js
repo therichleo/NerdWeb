@@ -44,7 +44,13 @@ export class UserRepository {
         const isValid = await bcrypt.compare(password, user.password)  //password es el que nos pasan y el user.password es el hasheado en bdd
         if(!isValid) throw new Error('Password is invalid')
 
-        return user
+        //const { password: _, ...publicUser } = user   -> esto permite eliminar dato password y cederle todos los demas datos de ser a public user
+        //                                              -> esta forma no es la mas adecuada (insegura)
+
+        const PublicUser = {    //esta forma es mucho mejor para verificar que campos devolver
+            email: user.email
+        }
+        return PublicUser
     }
 }
 
