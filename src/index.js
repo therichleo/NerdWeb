@@ -5,6 +5,8 @@ import { UserRepository } from './user-repository.js'
 const app = express()
 app.use(express.json()) //express.json ayuda a mirar req.body 
 
+app.set('view engine','handlebars')
+
 
 app.get('/', (req, res) => {
     res.send('Hola mundo')
