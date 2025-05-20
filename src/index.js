@@ -1,5 +1,6 @@
-import express from 'express'
-import { PORT } from './config.js'
+import express, { json } from 'express'
+import jwt from 'jsonwebtoken'
+import { PORT, LLAVE_SECRETA } from './config.js'
 import { UserRepository } from './user-repository.js'
 import { engine } from 'express-handlebars'
 
@@ -14,7 +15,7 @@ app.set('views', './views');
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home', {username: 'therichleo'} )
 })
 
 app.post('/login', async (req,res) => {
@@ -22,6 +23,9 @@ app.post('/login', async (req,res) => {
 
     try{
         const user = await UserRepository.login({ email, password })
+        const token = jwt.sign({ id: user.id }, LLAVE_SECRETA, {
+            expiresIn: '1h'
+        })
         res.send({ user })
     } catch(error){
         res.status(401).send(error.message)
@@ -43,7 +47,9 @@ app.post('/register', async (req,res) => {
 })
 
 app.post('/logout', (req,res) => {})
-app.get('/protected', (req,res) => {})
+app.get('/profile', (req,res) => {
+
+})
 
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`)
