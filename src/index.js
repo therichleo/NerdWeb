@@ -1,15 +1,20 @@
 import express from 'express'
 import { PORT } from './config.js'
 import { UserRepository } from './user-repository.js'
+import { engine } from 'express-handlebars'
 
 const app = express()
 app.use(express.json()) //express.json ayuda a mirar req.body 
 
-app.set('view engine','handlebars')
+// Configure handlebars
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-    res.send('Hola mundo')
+    res.render('home')
 })
 
 app.post('/login', async (req,res) => {
