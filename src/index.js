@@ -33,6 +33,7 @@ app.set('view engine', 'handlebars');
 app.set('views', './views');
 
 app.use(express.static('public'));
+app.use('/images', express.static('src/images'));
 
 app.get('/', (req, res) => {
   res.render('home', { username: 'therichleo' });
