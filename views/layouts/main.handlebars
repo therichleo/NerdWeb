@@ -68,8 +68,13 @@
               0 0 0.2em #b3b9c1;';"
             >Contáctanos</a>
             <a
-              class='nav-link disabled'
-              aria-disabled='true'
+              {{#if isLoggedIn}}
+                class="nav-link"
+                href="#"
+              {{else}}
+                class='nav-link disabled'
+                aria-disabled='true'
+              {{/if}}
               style="text-shadow: 
               1px 1px 2px #b3b9c1,
               0 0 1em #b3b9c1,

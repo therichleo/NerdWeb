@@ -43,12 +43,7 @@ app.get('/', (req, res) => {
   if (token) {
     boolean = true;
   }
-  try {
-    const data = jwt.verify(token, LLAVE_SECRETA);
-    res.render('home', data, boolean);
-  } catch (error) {
-    res.render('home', boolean);
-  }
+  res.render('home', { isLoggedIn: boolean });
 });
 
 app.post('/login', async (req, res) => {
@@ -93,15 +88,26 @@ app.post('/register', async (req, res) => {
 
 app.post('/logout', (req, res) => {});
 
-app.get('/profile', (req, res) => {
+app.get('/profile', async (req, res) => {
   const token = req.cookies.token_de_acceso;
+  let boolean = false;
 
   if (!token) {
     return res.status(403).send('acceso no autorizado 403');
   }
+
+  boolean = true;
+
   try {
     const data = jwt.verify(token, LLAVE_SECRETA);
-    res.render('profile', data); //data contiene id
+    const user = await UserRepository.getById(data.id);
+
+    res.render('profile', {
+      isLoggedIn: boolean,
+      username: user.username,
+      email: user.email,
+      anonimato: user.anonitamo,
+    }); //data contiene id
   } catch (error) {
     res.status(401).send('acceso no autorizado2');
   }
