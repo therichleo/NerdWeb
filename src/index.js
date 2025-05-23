@@ -58,7 +58,7 @@ app.post('/login', async (req, res) => {
 
       .cookie('token_de_acceso', token, {
         httpOnly: true, //httpOnly para que la token solo se acceda desde el servidor
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production', //si ponemos secure: 'true' es para https en formato nube
         sameSite: 'strict',
         maxAge: 1000 * 60 * 60,
       })
@@ -86,17 +86,17 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/logout', (req, res) => {});
+app.post('/logout', (req, res) => {
+  res.clearCookie('token_de_acceso').json({ message: 'Logout successful ' });
+});
 
 app.get('/profile', async (req, res) => {
   const token = req.cookies.token_de_acceso;
   let boolean = false;
 
-  if (!token) {
-    return res.status(403).send('acceso no autorizado 403');
+  if (token) {
+    boolean = true;
   }
-
-  boolean = true;
 
   try {
     const data = jwt.verify(token, LLAVE_SECRETA);
@@ -107,9 +107,11 @@ app.get('/profile', async (req, res) => {
       username: user.username,
       email: user.email,
       anonimato: user.anonitamo,
-    }); //data contiene id
+    }); //data contiene id, con id llamamos a getById y conseguimos mas informacion directa
   } catch (error) {
-    res.status(401).send('acceso no autorizado2');
+    res.render('profile', {
+      isLoggedIn: boolean,
+    });
   }
 });
 
@@ -127,3 +129,4 @@ liveReloadServer.server.once('connection', () => {
 app.use((req, res) => {
   res.status(404).send('<h1>404</>');
 });
+// aña
