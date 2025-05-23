@@ -38,7 +38,17 @@ app.use(express.static('public'));
 app.use('/images', express.static('src/images'));
 
 app.get('/', (req, res) => {
-  res.render('home', { username: 'therichleo' });
+  const token = req.cookies.token_de_acceso;
+  const boolean = false;
+  if (token) {
+    boolean = true;
+  }
+  try {
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    res.render('home', data, boolean);
+  } catch (error) {
+    res.render('home', boolean);
+  }
 });
 
 app.post('/login', async (req, res) => {
@@ -51,8 +61,11 @@ app.post('/login', async (req, res) => {
     });
     res
 
-      .cookie('acces_token', token, {
+      .cookie('token_de_acceso', token, {
         httpOnly: true, //httpOnly para que la token solo se acceda desde el servidor
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60,
       })
       .send({ user, token });
   } catch (error) {
@@ -79,7 +92,20 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {});
-app.get('/profile', (req, res) => {});
+
+app.get('/profile', (req, res) => {
+  const token = req.cookies.token_de_acceso;
+
+  if (!token) {
+    return res.status(403).send('acceso no autorizado 403');
+  }
+  try {
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    res.render('profile', data); //data contiene id
+  } catch (error) {
+    res.status(401).send('acceso no autorizado2');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
