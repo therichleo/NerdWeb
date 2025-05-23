@@ -7,6 +7,7 @@ import livereload from 'livereload';
 import connectLivereload from 'connect-livereload';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import cookieParser from 'cookie-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +28,7 @@ const app = express();
 
 app.use(connectLivereload());
 app.use(express.json()); //express.json ayuda a mirar req.body
+app.use(cookieParser()); //cookie.
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -47,7 +49,12 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user.id }, LLAVE_SECRETA, {
       expiresIn: '1h',
     });
-    res.send({ user });
+    res
+
+      .cookie('acces_token', token, {
+        httpOnly: true, //httpOnly para que la token solo se acceda desde el servidor
+      })
+      .send({ user, token });
   } catch (error) {
     res.status(401).send(error.message);
   }
