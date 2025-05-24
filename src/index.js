@@ -26,6 +26,10 @@ liveReloadServer.watch([
 
 const app = express();
 
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/js', express.static(__dirname + '/js'));
+app.use('/images', express.static(__dirname + '/images'));
+
 app.use(connectLivereload());
 app.use(express.json()); //express.json ayuda a mirar req.body
 app.use(cookieParser()); //cookie.
