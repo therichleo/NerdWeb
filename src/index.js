@@ -32,6 +32,7 @@ app.use('/images', express.static(__dirname + '/images'));
 
 app.use(connectLivereload());
 app.use(express.json()); //express.json ayuda a mirar req.body
+app.use(express.urlencoded({ extended: true })); // Middleware para analizar datos de formularios
 app.use(cookieParser()); //cookie.
 
 app.engine('handlebars', engine());
@@ -43,7 +44,7 @@ app.use('/images', express.static('src/images'));
 
 app.get('/', (req, res) => {
   const token = req.cookies.token_de_acceso;
-  const boolean = false;
+  let boolean = false;
   if (token) {
     boolean = true;
   }
@@ -58,15 +59,14 @@ app.post('/login', async (req, res) => {
     const token = jwt.sign({ id: user.id }, LLAVE_SECRETA, {
       expiresIn: '1h',
     });
-    res
+    res.cookie('token_de_acceso', token, {
+      httpOnly: true, //httpOnly para que la token solo se acceda desde el servidor
+      secure: process.env.NODE_ENV === 'production', //si ponemos secure: 'true' es para https en formato nube
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60,
+    });
 
-      .cookie('token_de_acceso', token, {
-        httpOnly: true, //httpOnly para que la token solo se acceda desde el servidor
-        secure: process.env.NODE_ENV === 'production', //si ponemos secure: 'true' es para https en formato nube
-        sameSite: 'strict',
-        maxAge: 1000 * 60 * 60,
-      })
-      .send({ user, token });
+    res.redirect('/profile'); //Redirect sirve mas pa que las weas de antes trabajen primero y luego redirijimos (pa qe la info vaya primero)
   } catch (error) {
     res.status(401).send(error.message);
   }
@@ -95,7 +95,8 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  res.clearCookie('token_de_acceso').json({ message: 'Logout successful ' });
+  res.clearCookie('token_de_acceso');
+  res.render('home');
 });
 
 app.get('/profile', async (req, res) => {

@@ -1,1 +1,7 @@
-<h1>Ruta de profile</h1>
+<h1>Nombre: {{username}}</h1>
+<h2>Email: {{email}}</h2>
+<h3>{{#if anonimato}}Anonimato: Si{{else}}Anonimato: No{{/if}}</h3>
+
+<form action='/logout' method='post'>
+  <button>submit</button>
+</form>
