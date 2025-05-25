@@ -87,11 +87,15 @@ app.post('/register', async (req, res) => {
       email,
       anonimato,
     });
-    res.send({ id });
+    res.redirect('/profile');
   } catch (error) {
     //Lo mejor no es mandar el error entero, si no aclarar mejor (proximamente)
     res.status(400).send(error.message);
   }
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
 });
 
 app.post('/logout', (req, res) => {
