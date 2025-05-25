@@ -35,7 +35,14 @@ app.use(express.json()); //express.json ayuda a mirar req.body
 app.use(express.urlencoded({ extended: true })); // Middleware para analizar datos de formularios
 app.use(cookieParser()); //cookie.
 
-app.engine('handlebars', engine());
+app.engine(
+  'handlebars',
+  engine({
+    helpers: {
+      eq: (a, b) => a === b,
+    },
+  })
+);
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
@@ -77,8 +84,8 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const { username, password, email, anonimato } = req.body;
-  console.log(req.body);
+  const { username, password, email } = req.body;
+  const anonimato = req.body.anonimato === 'true' ? true : false;
 
   try {
     const id = await UserRepository.create({
@@ -87,10 +94,18 @@ app.post('/register', async (req, res) => {
       email,
       anonimato,
     });
+
+    const token = jwt.sign({ id }, LLAVE_SECRETA, {
+      expiresIn: '1h',
+    });
+    res.cookie('token_de_acceso', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 1000 * 60 * 60,
+    });
     res.redirect('/profile');
   } catch (error) {
-    //Lo mejor no es mandar el error entero, si no aclarar mejor (proximamente)
-    res.status(400).send(error.message);
+    return res.status(400).render('register', { errorCode: error.message });
   }
 });
 

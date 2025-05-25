@@ -5,13 +5,18 @@
   <form action='/register' method='post'>
     <label for='username'>Nombre de usuario</label>
     <input type='text' id='username' name='username' required />
+    {{#if (eq errorCode 'USERNAME_ALREADY_EXIST')}}
+      <div class='error'>Username ya existe</div>
+    {{/if}}
 
+    {{#if (eq errorCode 'USERNAME_LENGHT')}}
+      <div class='error'>Username debe tener al menos 3 caracteres</div>
+    {{/if}}
     <label for='email'>Correo electronico</label>
     <input type='email' id='email' name='email' required />
     {{! El parametro que recibe el backend es el name del input}}
     <label for='password'>Contraseña</label>
     <input type='password' id='password' name='password' required />
-
     <label>
       <input type='checkbox' name='anonimato' value='true' />
       Perfil anonimo (Opcional)

@@ -1,5 +1,8 @@
 import dbLocal from 'db-local'; // Base de datos LOCAL, implementable y facil de montar otra diferente
 import { Magic_number } from './config.js';
+import fs from 'fs';
+import path from 'path';
+
 const { Schema } = new dbLocal({ path: './db' });
 
 import bcrypt from 'bcrypt';
@@ -30,6 +33,10 @@ export class UserRepository {
       email,
       anonimato,
     }).save();
+
+    const usersPath = path.join('./db', 'User.json');
+    const users = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
+    fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
     return id;
   }
 
@@ -56,7 +63,7 @@ export class UserRepository {
   static async getById(id) {
     const user = User.findOne(id);
     if (!user) {
-      throw new Error('user not found');
+      throw new Error('USER_NOT_FOUND');
     }
     return {
       id: user.id,
@@ -79,21 +86,17 @@ class Validation {
 
   static username(username) {
     const user = User.findOne({ username });
-    if (user) throw new Error('Username already exists, change your username');
-    if (typeof username != 'string')
-      throw new Error('username must be a string');
-    if (username.length < 3)
-      throw new Error('Username must be at least 3 characters lenght');
+    if (user) throw new Error('USERNAME_ALREADY_EXIST');
+    if (typeof username != 'string') throw new Error('USERNAME_TYPE');
+    if (username.length < 3) throw new Error('USERNAME_LENGHT');
   }
 
   static password(password) {
-    if (typeof password != 'string')
-      throw new Error('Password must be a string');
+    if (typeof password != 'string') throw new Error('PASSWORD_TYPE');
     //if(password.length < 6) throw new Error('Password must be at least 6 characters lenght')
     //if(!password.includes("$") || !password.includes("#") || !password.includes("&")) throw new Error('Password must have a character like "#,$,&"')
   }
   static anonimato(anonimato) {
-    if (typeof anonimato != 'boolean')
-      throw new Error('anonimato must be a boolean (true or false)');
+    if (typeof anonimato != 'boolean') throw new Error('ANONIMATO_TYPE');
   }
 }

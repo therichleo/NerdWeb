@@ -42,3 +42,9 @@
 .auth-form button:hover {
   background-color: #2980b9;
 }
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
