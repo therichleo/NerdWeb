@@ -1,15 +1,19 @@
 <link rel='stylesheet' href='/css/auth-form.css' />
-<script src='/js/auth-form.js' defer></script>
 
 <div class='auth-form'>
   <h2>Iniciar Sesión</h2>
   <form action='/login' method='post'>
     <label for='email'>Correo electronico</label>
     <input type='email' id='email' name='email' required />
+    {{#if (eq errorCode 'EMAIL_NO_EXIST')}}
+      <div class='error'>Email no existe</div>
+    {{/if}}
     {{! El parametro que recibe el backend es el name del input}}
     <label for='password'>Contraseña</label>
     <input type='password' id='password' name='password' required />
-
+    {{#if (eq errorCode 'PASSWORD_INVALID')}}
+      <div class='error'>Contraseña invalida, ingresela nuevamente</div>
+    {{/if}}
     <button type='submit'>Entrar</button>
   </form>
   <a class='nav-link' href='/register'>No tienes cuenta? Registrate</a>

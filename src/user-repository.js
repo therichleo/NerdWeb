@@ -47,13 +47,11 @@ export class UserRepository {
   }
 
   static async login({ email, password }) {
-    Validation.password(password);
-
     const user = User.findOne({ email });
-    if (!user) throw new Error('There is no user with that email');
+    if (!user) throw new Error('EMAIL_NO_EXIST');
 
     const isValid = await bcrypt.compare(password, user.password); //password es el que nos pasan y el user.password es el hasheado en bdd
-    if (!isValid) throw new Error('Password is invalid');
+    if (!isValid) throw new Error('PASSWORD_INVALID');
 
     //const { password: _, ...publicUser } = user   -> esto permite eliminar dato password y cederle todos los demas datos de ser a public user
     //                                              -> esta forma no es la mas adecuada (insegura)

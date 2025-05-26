@@ -75,7 +75,7 @@ app.post('/login', async (req, res) => {
 
     res.redirect('/profile'); //Redirect sirve mas pa que las weas de antes trabajen primero y luego redirijimos (pa qe la info vaya primero)
   } catch (error) {
-    res.status(401).send(error.message);
+    return res.status(401).render('login', { errorCode: error.message });
   }
 });
 
@@ -142,6 +142,8 @@ app.get('/profile', async (req, res) => {
     });
   }
 });
+
+app.post('/publicar', (req, res) => {});
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
