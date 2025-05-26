@@ -37,11 +37,16 @@ export class UserRepository {
     const usersPath = path.join('./db', 'User.json');
     const users = JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
     fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
-    return id;
+
+    const user = User.findOne({ id });
+
+    const PublicUser = {
+      email: user.email,
+    };
+    return PublicUser;
   }
 
   static async login({ email, password }) {
-    Validation.email(email);
     Validation.password(password);
 
     const user = User.findOne({ email });
@@ -80,8 +85,8 @@ class Validation {
     //if(typeof email != 'string') throw new Error('Password must be a string')
     //const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     //if (!emailRegex.test(email)) throw new Error('Email format is invalid');
-    //const emailExists = User.findOne({ email });
-    //if (emailExists) throw new Error('Email already registered');
+    const emailExists = User.findOne({ email });
+    if (emailExists) throw new Error('EMAIL_ALREADY_EXIST');
   }
 
   static username(username) {

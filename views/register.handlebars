@@ -14,6 +14,9 @@
     {{/if}}
     <label for='email'>Correo electronico</label>
     <input type='email' id='email' name='email' required />
+    {{#if (eq errorCode 'EMAIL_ALREADY_EXIST')}}
+      <div class='error'>Email ya registrado</div>
+    {{/if}}
     {{! El parametro que recibe el backend es el name del input}}
     <label for='password'>Contraseña</label>
     <input type='password' id='password' name='password' required />

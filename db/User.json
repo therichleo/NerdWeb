@@ -1,21 +1,5 @@
 [
   {
-    "id": "2ec36ec5-2c02-4689-81b1-5ad4d325c39b",
-    "username": "admin2",
-    "password": "$2b$10$zwrIPdgrgl1KIX/Sv8Oy6uj2eR4XyRCX3Qaocs31FZVZQeOrvkVSS",
-    "email": "admin2@gmail.com",
-    "anonimato": true,
-    "_id": "683388c4679129d3fcf536ba"
-  },
-  {
-    "id": "b871ee7c-0bf5-446d-b08e-992f86bd0efd",
-    "username": "admin",
-    "password": "$2b$10$mQ0VRXDdkHg76TThM0MM0u4LLDmyplSdNZx1MHDeE7ElmWrPAGb36",
-    "email": "admin@gmail.com",
-    "anonimato": false,
-    "_id": "6833773907084cd1215c51f3"
-  },
-  {
     "id": "ae8e29fb-e19f-4922-978f-828bf90348b1",
     "username": "jotajota",
     "password": "$2b$10$MR.fnrFVxMfE84bidUJGd.HzulyWkUzi42S3scRy6ICNj0s8rtxMy",

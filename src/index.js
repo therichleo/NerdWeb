@@ -134,7 +134,7 @@ app.get('/profile', async (req, res) => {
       isLoggedIn: boolean,
       username: user.username,
       email: user.email,
-      anonimato: user.anonitamo,
+      anonimato: user.anonimato,
     }); //data contiene id, con id llamamos a getById y conseguimos mas informacion directa
   } catch (error) {
     res.render('profile', {
