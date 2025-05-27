@@ -199,7 +199,7 @@ app.get('/publicaciones', async (req, res) => {
       });
     }
   }
-  return res.json(arrayData);
+  return res.render('publicaciones', { publicaciones: arrayData });
 });
 
 app.listen(PORT, () => {

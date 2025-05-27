@@ -1,0 +1,8 @@
+<h1>Publicaciones</h1>
+
+{{#each publicaciones}}
+  <strong>{{name}}</strong>:{{texto}}
+  {{#if descripcion}}
+    <p>{{descripcion}}</p>
+  {{/if}}
+{{/each}}
