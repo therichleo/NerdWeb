@@ -29,6 +29,6 @@ export class MediaRepository {
   }
 
   static getAll() {
-    return Media.all();
+    return Media.find({});
   }
 }

@@ -26,3 +26,7 @@ GET http://localhost:3000/profile
 ### Logout
 POST http://localhost:3000/logout
 Content-Type: application/json
+
+### Tener datos
+GET http://localhost:3000/publicaciones
+Content-Type: application/json

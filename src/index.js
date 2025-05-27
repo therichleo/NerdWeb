@@ -177,6 +177,24 @@ app.get('/publicar', (req, res) => {
   res.render('publicar');
 });
 
+app.get('/publicaciones', async (req, res) => {
+  const data = await MediaRepository.getAll();
+  data.forEach((item) => {
+    const id_user = item.id_user;
+    const texto = item.texto;
+    const descripcion = item.descripcion;
+    //VERIFICAR ID DE USUARIO CON SU INFORMACION SI ANONIMO O NO
+    const user = UserRepository.getById({ id_user });
+    let name = user.username;
+    if (user.anonimato) {
+      name = 'anonimo';
+    }
+    return res.json(name, texto, descripcion);
+  });
+
+  return res.json(data);
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
 });
