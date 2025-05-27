@@ -1,5 +1,13 @@
 [
   {
+    "id": "59860e6a-649f-474e-9c6a-d904fb324932",
+    "username": "admin33",
+    "password": "$2b$10$DH7jW8mEY1bGPt5PfCaZ6.NyGYWphn4rLJBGS/jjR7POaHRel3cRq",
+    "email": "admin3@gmail.com",
+    "anonimato": true,
+    "_id": "6835034d2beab4f5abf667c9"
+  },
+  {
     "id": "ae8e29fb-e19f-4922-978f-828bf90348b1",
     "username": "jotajota",
     "password": "$2b$10$MR.fnrFVxMfE84bidUJGd.HzulyWkUzi42S3scRy6ICNj0s8rtxMy",

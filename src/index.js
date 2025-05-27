@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import jwt from 'jsonwebtoken';
 import { PORT, LLAVE_SECRETA } from './config.js';
 import { UserRepository } from './user-repository.js';
+import { MediaRepository } from './user-publicacion.js';
 import { engine } from 'express-handlebars';
 import livereload from 'livereload';
 import connectLivereload from 'connect-livereload';
@@ -143,7 +144,38 @@ app.get('/profile', async (req, res) => {
   }
 });
 
-app.post('/publicar', (req, res) => {});
+app.post('/publicar', async (req, res) => {
+  const { texto, descripcion } = req.body;
+  const token = req.cookies.token_de_acceso;
+
+  if (!token) {
+    return res
+      .status(401)
+      .render('publicar', { errorCode: 'No estás autenticado.' });
+  }
+
+  try {
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(data.id);
+
+    await MediaRepository.create({
+      id_user: user.id,
+      texto,
+      descripcion,
+    });
+
+    res.redirect('/');
+  } catch (error) {
+    console.error(error);
+    res
+      .status(403)
+      .render('publicar', { errorCode: 'Error al publicar: ' + error.message });
+  }
+});
+
+app.get('/publicar', (req, res) => {
+  res.render('publicar');
+});
 
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

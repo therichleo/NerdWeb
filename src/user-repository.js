@@ -58,13 +58,14 @@ export class UserRepository {
 
     const PublicUser = {
       //esta forma es mucho mejor para verificar que campos devolver
+      id: user.id,
       email: user.email,
     };
     return PublicUser;
   }
 
   static async getById(id) {
-    const user = User.findOne(id);
+    const user = User.findOne({ id });
     if (!user) {
       throw new Error('USER_NOT_FOUND');
     }
@@ -72,7 +73,7 @@ export class UserRepository {
       id: user.id,
       email: user.email,
       username: user.username,
-      anonitamo: user.anonimato,
+      anonimato: user.anonimato,
     };
   }
 }
