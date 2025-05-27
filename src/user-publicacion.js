@@ -2,6 +2,7 @@
 import dbLocal from 'db-local';
 import { v4 as uuidv4 } from 'uuid'; // Este se usa para generar id unico
 import path from 'path';
+import { text } from 'stream/consumers';
 
 const { Schema } = new dbLocal({ path: './db' });
 
@@ -14,6 +15,10 @@ const Media = Schema('Media', {
 
 export class MediaRepository {
   static create({ id_user, texto, descripcion }) {
+    if (!texto) {
+      throw new Error('NO_TEXT');
+    }
+
     const id = uuidv4();
 
     return Media.create({
@@ -22,10 +27,6 @@ export class MediaRepository {
       texto,
       descripcion,
     }).save();
-  }
-
-  static findByUserId(id_user) {
-    return Media.find({ id_user });
   }
 
   static getAll() {

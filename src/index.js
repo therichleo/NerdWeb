@@ -179,20 +179,27 @@ app.get('/publicar', (req, res) => {
 
 app.get('/publicaciones', async (req, res) => {
   const data = await MediaRepository.getAll();
-  data.forEach((item) => {
+  const arrayData = [];
+  for (const item of data) {
     const id_user = item.id_user;
     const texto = item.texto;
     const descripcion = item.descripcion;
-    //VERIFICAR ID DE USUARIO CON SU INFORMACION SI ANONIMO O NO
-    const user = UserRepository.getById({ id_user });
-    let name = user.username;
-    if (user.anonimato) {
-      name = 'anonimo';
-    }
-    return res.json(name, texto, descripcion);
-  });
+    const user = await UserRepository.getById(id_user);
 
-  return res.json(data);
+    if (!descripcion) {
+      arrayData.push({
+        name: user.anonimato ? 'anonimo' : user.username,
+        texto: texto,
+      });
+    } else {
+      arrayData.push({
+        name: user.anonimato ? 'anonimo' : user.username,
+        texto: texto,
+        descripcion: descripcion,
+      });
+    }
+  }
+  return res.json(arrayData);
 });
 
 app.listen(PORT, () => {
