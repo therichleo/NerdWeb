@@ -1,5 +1,13 @@
 [
   {
+    "id": "bd3a3aae-59fc-4bef-9f7a-328692d42bb3",
+    "username": "administrador",
+    "password": "$2b$10$tSLWwU6tJXCO.NKaw7D2.O9dvqalUu0WOyym5zpht4Xob8x19hYz2",
+    "email": "pro@gmail.com",
+    "anonimato": false,
+    "_id": "683673f31d57ce305fda3b8f"
+  },
+  {
     "id": "56eba8ab-0a9c-41ab-940b-9a7b37295bfa",
     "username": "hola123",
     "password": "$2b$10$zi97Hg7k6.LvpauYlHmssOqRDxKZieUMZG7dHcNR.BR5e2dNjn3w.",

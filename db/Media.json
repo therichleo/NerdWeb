@@ -1,30 +1,10 @@
 [
   {
-    "id": "cd5883e3-ceb8-491c-a2ca-44157dd1ed33",
-    "id_user": "56eba8ab-0a9c-41ab-940b-9a7b37295bfa",
-    "texto": "ojalá tus ojos me perteneciéran",
-    "descripcion": "",
-    "_id": "68354de077ffcd01fefe1474"
-  },
-  {
-    "id": "b859c488-9df1-4e00-bad4-8fbb0ffa8888",
-    "id_user": "56eba8ab-0a9c-41ab-940b-9a7b37295bfa",
-    "texto": "Quiero que me diga que me ama",
-    "descripcion": ".",
-    "_id": "68354d7377ffcd01fefe1473"
-  },
-  {
-    "id": "fe1605b0-1109-4dae-a378-ff59f367407b",
-    "id_user": "59860e6a-649f-474e-9c6a-d904fb324932",
-    "texto": "me gusta cuando callas por que es como que estas ausente",
-    "descripcion": "este poema me gusta por esto y por esto",
-    "_id": "683503672beab4f5abf667ca"
-  },
-  {
-    "id": "56a91354-b3c0-4652-9542-8939d0593b1b",
+    "id": "0828cd06-7314-4309-b768-3494a7fbd127",
     "id_user": "ae8e29fb-e19f-4922-978f-828bf90348b1",
-    "texto": "dasda",
-    "descripcion": "asdasdas",
-    "_id": "68350276797acef514653429"
+    "titulo": "Haiku N1",
+    "texto": "aquel de la voz. que es difícil de oir. quiere el amor",
+    "descripcion": "this haiku that I like so much",
+    "_id": "68365e8fcf1b482cf8b4013c"
   }
 ]

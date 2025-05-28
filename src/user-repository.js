@@ -76,6 +76,16 @@ export class UserRepository {
       anonimato: user.anonimato,
     };
   }
+
+  static async getByUsername(username) {
+    const user = User.findOne({ username });
+    if (!user) {
+      throw new Error('USER_NOT_FOUND');
+    }
+    return {
+      id: user.id,
+    };
+  }
 }
 
 class Validation {

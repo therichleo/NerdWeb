@@ -1,8 +1,16 @@
 <h1>Publicaciones</h1>
 
 {{#each publicaciones}}
-  <strong>{{name}}</strong>:{{texto}}
-  {{#if descripcion}}
-    <p>{{descripcion}}</p>
-  {{/if}}
+
+  <div class='card' style='width: 18rem;'>
+    <div class='card-body'>
+      <h6 class='card-title'>{{titulo}}</h6>
+      <p class='card-text'>{{texto}}</p>
+      {{#if descripcion}}
+        <small>{{descripcion}}</small>
+      {{/if}}
+      <a href='#' class='btn'>Ver perfil</a>
+    </div>
+  </div>
+
 {{/each}}

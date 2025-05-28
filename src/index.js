@@ -145,7 +145,7 @@ app.get('/profile', async (req, res) => {
 });
 
 app.post('/publicar', async (req, res) => {
-  const { texto, descripcion } = req.body;
+  const { titulo, texto, descripcion } = req.body;
   const token = req.cookies.token_de_acceso;
 
   if (!token) {
@@ -160,6 +160,7 @@ app.post('/publicar', async (req, res) => {
 
     await MediaRepository.create({
       id_user: user.id,
+      titulo,
       texto,
       descripcion,
     });
@@ -182,6 +183,7 @@ app.get('/publicaciones', async (req, res) => {
   const arrayData = [];
   for (const item of data) {
     const id_user = item.id_user;
+    const titulo = item.titulo;
     const texto = item.texto;
     const descripcion = item.descripcion;
     const user = await UserRepository.getById(id_user);
@@ -189,17 +191,48 @@ app.get('/publicaciones', async (req, res) => {
     if (!descripcion) {
       arrayData.push({
         name: user.anonimato ? 'anonimo' : user.username,
+        titulo: titulo,
         texto: texto,
       });
     } else {
       arrayData.push({
         name: user.anonimato ? 'anonimo' : user.username,
+        titulo: titulo,
         texto: texto,
         descripcion: descripcion,
       });
     }
   }
   return res.render('publicaciones', { publicaciones: arrayData });
+});
+
+app.get('/:username', async (req, res) => {
+  const { username } = req.params;
+  const token = req.cookies.token_de_acceso;
+
+  try {
+    const user = await UserRepository.getByUsername(username);
+    if (!user) {
+      return res.status(404).render('profile404');
+    }
+    let isOwnProfile = false;
+    if (token) {
+      try {
+        const data = jwt.verify(token, LLAVE_SECRETA);
+        if (data.id === user.id) {
+          isOwnProfile = true;
+        }
+      } catch (error) {}
+    }
+    const publicaciones = await MediaRepository.getByUserID(user.id);
+
+    res.render('user-profile', {
+      username: user.anonimato ? 'anonimo' : user.username,
+      publicaciones,
+      isOwnProfile,
+      anonimato: user.anonimato,
+    });
+  } catch (error) {}
 });
 
 app.listen(PORT, () => {
