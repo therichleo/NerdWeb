@@ -1,35 +1,19 @@
 [
   {
-    "id": "54c6d7b8-6d80-4460-8e0c-2e3d07dc3dac",
-    "username": "admin56",
-    "password": "$2b$10$XraRyt/Q0eOTKpmlSVPOU.0.Lz5EzPbeGlPW3S4TtQdTizogucJlK",
-    "email": "adming5r4@gmail.com",
+    "id": "8fd2c5ef-9990-470e-95a5-d46b5a7b2873",
+    "username": "prueba1",
+    "password": "$2b$10$xPaD6TKm6mHLN9AACxSR0.Mp9rKZ98n3IYLUW0QPbTQA4ODNKfreG",
+    "email": "prueba1@gmail.com",
     "anonimato": false,
-    "_id": "6837dbc48caada3fc79fe789"
+    "_id": "6838b7939a777d46bda963ef"
   },
   {
-    "id": "bd3a3aae-59fc-4bef-9f7a-328692d42bb3",
-    "username": "administrador",
-    "password": "$2b$10$tSLWwU6tJXCO.NKaw7D2.O9dvqalUu0WOyym5zpht4Xob8x19hYz2",
-    "email": "pro@gmail.com",
+    "id": "1ff8f54a-8306-4717-8fde-09d143a887d6",
+    "username": "Therichleo",
+    "password": "$2b$10$RdyUiKa/JbET.7czXbzvEuFuw5B2j.NVMTZEDmKY.4VXZhz1EGtWe",
+    "email": "leo@gmail.com",
     "anonimato": false,
-    "_id": "683673f31d57ce305fda3b8f"
-  },
-  {
-    "id": "56eba8ab-0a9c-41ab-940b-9a7b37295bfa",
-    "username": "hola123",
-    "password": "$2b$10$zi97Hg7k6.LvpauYlHmssOqRDxKZieUMZG7dHcNR.BR5e2dNjn3w.",
-    "email": "hola123@gmail.com",
-    "anonimato": false,
-    "_id": "68354d5c77ffcd01fefe1472"
-  },
-  {
-    "id": "59860e6a-649f-474e-9c6a-d904fb324932",
-    "username": "admin33",
-    "password": "$2b$10$DH7jW8mEY1bGPt5PfCaZ6.NyGYWphn4rLJBGS/jjR7POaHRel3cRq",
-    "email": "admin3@gmail.com",
-    "anonimato": true,
-    "_id": "6835034d2beab4f5abf667c9"
+    "_id": "6838b6e79a777d46bda963ed"
   },
   {
     "id": "ae8e29fb-e19f-4922-978f-828bf90348b1",

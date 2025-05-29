@@ -258,6 +258,7 @@ app.get('/:username', async (req, res) => {
 
 app.get('/anonprofile', async (req, res) => {
   const { id } = req.query;
+  console.log('ID recibido:', id);
   try {
     const user = await UserRepository.getById(id);
     if (!user || !user.anonimato) {
@@ -267,7 +268,9 @@ app.get('/anonprofile', async (req, res) => {
     res.render('user-anonimo', {
       publicaciones,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send('error del servidor');
+  }
 });
 
 app.listen(PORT, () => {
