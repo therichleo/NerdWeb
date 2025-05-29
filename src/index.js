@@ -180,8 +180,13 @@ app.get('/publicar', (req, res) => {
 
 app.get('/publicaciones', async (req, res) => {
   const token = req.cookies.token_de_acceso;
+
+  if (!token) {
+    return res.render('login');
+  }
+
   const _data = jwt.verify(token, LLAVE_SECRETA);
-  const _user = await UserRepository.getById(data.id);
+  const _user = await UserRepository.getById(_data.id);
 
   const data = await MediaRepository.getAll();
   const arrayData = [];
@@ -203,6 +208,7 @@ app.get('/publicaciones', async (req, res) => {
         id_user: user.id,
         anonimato: user.anonimato,
         username: user.username,
+        isOwnProfile,
       });
     } else {
       arrayData.push({
@@ -213,10 +219,11 @@ app.get('/publicaciones', async (req, res) => {
         id_user: user.id,
         anonimato: user.anonimato,
         username: user.username,
+        isOwnProfile,
       });
     }
   }
-  return res.render('publicaciones', isOwnProfile, {
+  return res.render('publicaciones', {
     publicaciones: arrayData,
   });
 });
