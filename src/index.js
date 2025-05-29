@@ -179,6 +179,10 @@ app.get('/publicar', (req, res) => {
 });
 
 app.get('/publicaciones', async (req, res) => {
+  const token = req.cookies.token_de_acceso;
+  const _data = jwt.verify(token, LLAVE_SECRETA);
+  const _user = await UserRepository.getById(data.id);
+
   const data = await MediaRepository.getAll();
   const arrayData = [];
   for (const item of data) {
@@ -187,12 +191,18 @@ app.get('/publicaciones', async (req, res) => {
     const texto = item.texto;
     const descripcion = item.descripcion;
     const user = await UserRepository.getById(id_user);
-
+    let isOwnProfile = false;
+    if (id_user === _user.id) {
+      isOwnProfile = true;
+    }
     if (!descripcion) {
       arrayData.push({
         name: user.anonimato ? 'anonimo' : user.username,
         titulo: titulo,
         texto: texto,
+        id_user: user.id,
+        anonimato: user.anonimato,
+        username: user.username,
       });
     } else {
       arrayData.push({
@@ -200,16 +210,20 @@ app.get('/publicaciones', async (req, res) => {
         titulo: titulo,
         texto: texto,
         descripcion: descripcion,
+        id_user: user.id,
+        anonimato: user.anonimato,
+        username: user.username,
       });
     }
   }
-  return res.render('publicaciones', { publicaciones: arrayData });
+  return res.render('publicaciones', isOwnProfile, {
+    publicaciones: arrayData,
+  });
 });
 
 app.get('/:username', async (req, res) => {
   const { username } = req.params;
   const token = req.cookies.token_de_acceso;
-
   try {
     const user = await UserRepository.getByUsername(username);
     if (!user) {
@@ -227,10 +241,24 @@ app.get('/:username', async (req, res) => {
     const publicaciones = await MediaRepository.getByUserID(user.id);
 
     res.render('user-profile', {
-      username: user.anonimato ? 'anonimo' : user.username,
+      username,
+      anonimato: user.anonimato,
       publicaciones,
       isOwnProfile,
-      anonimato: user.anonimato,
+    });
+  } catch (error) {}
+});
+
+app.get('/anonprofile', async (req, res) => {
+  const { id } = req.query;
+  try {
+    const user = await UserRepository.getById(id);
+    if (!user || !user.anonimato) {
+      return res.status(404).render('profile404');
+    }
+    const publicaciones = await MediaRepository.getByUserID(user.id);
+    res.render('user-anonimo', {
+      publicaciones,
     });
   } catch (error) {}
 });
