@@ -10,7 +10,9 @@
         <a href='/{{username}}'>{{username}}</a>
       {{else}}
         {{#if anonimato}}
-          <a href='/anonprofile?id={{id_user}}'>anonimo</a>
+          {{#if anonToken}}
+            <a href='/anonprofile/{{anonToken}}'>anonimo</a>
+          {{/if}}
         {{else}}
           <a href='/{{username}}'>{{username}}</a>
         {{/if}}

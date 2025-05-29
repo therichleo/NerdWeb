@@ -200,32 +200,44 @@ app.get('/publicaciones', async (req, res) => {
     if (id_user === _user.id) {
       isOwnProfile = true;
     }
-    if (!descripcion) {
-      arrayData.push({
-        name: user.anonimato ? 'anonimo' : user.username,
-        titulo: titulo,
-        texto: texto,
-        id_user: user.id,
-        anonimato: user.anonimato,
-        username: user.username,
-        isOwnProfile,
-      });
-    } else {
-      arrayData.push({
-        name: user.anonimato ? 'anonimo' : user.username,
-        titulo: titulo,
-        texto: texto,
-        descripcion: descripcion,
-        id_user: user.id,
-        anonimato: user.anonimato,
-        username: user.username,
-        isOwnProfile,
-      });
+    let anonToken = null;
+    if (user.anonimato) {
+      anonToken = jwt.sign({ id: user.id }, LLAVE_SECRETA, { expiresIn: '1h' });
     }
+    const PostData = {
+      username: user.username,
+      titulo,
+      texto,
+      descripcion,
+      id_user: user.id,
+      anonimato: user.anonimato,
+      isOwnProfile,
+      anonToken,
+    };
+
+    arrayData.push(PostData);
   }
   return res.render('publicaciones', {
     publicaciones: arrayData,
   });
+});
+
+app.get('/anonprofile/:token', async (req, res) => {
+  const { token } = req.params;
+
+  try {
+    const { id } = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(id);
+    if (!user || !user.anonimato) {
+      return res.status(404).render('profile404');
+    }
+    const publicaciones = await MediaRepository.getByUserID(user.id);
+    res.render('user-anonimo', {
+      publicaciones,
+    });
+  } catch (error) {
+    res.status(400).send('error del servidor');
+  }
 });
 
 app.get('/:username', async (req, res) => {
@@ -254,23 +266,6 @@ app.get('/:username', async (req, res) => {
       isOwnProfile,
     });
   } catch (error) {}
-});
-
-app.get('/anonprofile', async (req, res) => {
-  const { id } = req.query;
-  console.log('ID recibido:', id);
-  try {
-    const user = await UserRepository.getById(id);
-    if (!user || !user.anonimato) {
-      return res.status(404).render('profile404');
-    }
-    const publicaciones = await MediaRepository.getByUserID(user.id);
-    res.render('user-anonimo', {
-      publicaciones,
-    });
-  } catch (error) {
-    res.status(500).send('error del servidor');
-  }
 });
 
 app.listen(PORT, () => {
