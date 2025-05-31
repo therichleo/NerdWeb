@@ -50,13 +50,22 @@ app.set('views', './views');
 app.use(express.static('public'));
 app.use('/images', express.static('src/images'));
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   const token = req.cookies.token_de_acceso;
   let boolean = false;
   if (token) {
     boolean = true;
   }
-  res.render('home', { isLoggedIn: boolean });
+  let stack = [];
+  const data = await MediaRepository.getAll();
+  for (const item of data) {
+    const id_user = item.id_user;
+    const titulo = item.titulo;
+    const texto = item.texto;
+    const descripcion = item.descripcion;
+  }
+  const context = { stack: [...stack].reverse() };
+  res.render('home', { isLoggedIn: boolean, publicaciones: context });
 });
 
 app.post('/login', async (req, res) => {
