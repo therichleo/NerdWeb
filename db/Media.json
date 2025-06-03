@@ -5,7 +5,8 @@
     "titulo": "That Mask Should Be Invicible",
     "texto": "Yamazakura, me encantan las hojas, Que escondes",
     "descripcion": "I am in love with haikus",
-    "_id": "6838b75c9a777d46bda963ee"
+    "_id": "6838b75c9a777d46bda963ee",
+    "categoria": "romance"
   },
   {
     "id": "0828cd06-7314-4309-b768-3494a7fbd127",
@@ -13,6 +14,7 @@
     "titulo": "Haiku N1",
     "texto": "aquel de la voz. que es difícil de oir. quiere el amor",
     "descripcion": "this haiku that I like so much",
-    "_id": "68365e8fcf1b482cf8b4013c"
+    "_id": "68365e8fcf1b482cf8b4013c",
+    "categoria": "romance"
   }
 ]

@@ -12,10 +12,11 @@ const Media = Schema('Media', {
   titulo: { type: String, required: true },
   texto: { type: String, required: true },
   descripcion: { type: String, required: false },
+  categoria: { type: String, required: true },
 });
 
 export class MediaRepository {
-  static create({ id_user, titulo, texto, descripcion }) {
+  static create({ id_user, titulo, texto, descripcion, categoria }) {
     const id = uuidv4();
 
     return Media.create({
@@ -24,6 +25,7 @@ export class MediaRepository {
       titulo,
       texto,
       descripcion,
+      categoria,
     }).save();
   }
 

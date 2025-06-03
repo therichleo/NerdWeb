@@ -63,12 +63,14 @@ app.get('/', async (req, res) => {
     const titulo = item.titulo;
     const texto = item.texto;
     const descripcion = item.descripcion;
+    const categoria = item.categoria;
 
     const Data = {
       id_user,
       titulo,
       texto,
       descripcion,
+      categoria,
     };
     Array.push(Data);
   }
@@ -132,7 +134,7 @@ app.get('/register', (req, res) => {
 
 app.post('/logout', (req, res) => {
   res.clearCookie('token_de_acceso');
-  res.render('home');
+  res.redirect('/');
 });
 
 app.get('/profile', async (req, res) => {
@@ -161,7 +163,7 @@ app.get('/profile', async (req, res) => {
 });
 
 app.post('/publicar', async (req, res) => {
-  const { titulo, texto, descripcion } = req.body;
+  const { titulo, texto, descripcion, categoria } = req.body;
   const token = req.cookies.token_de_acceso;
 
   if (!token) {
@@ -179,10 +181,14 @@ app.post('/publicar', async (req, res) => {
       titulo,
       texto,
       descripcion,
+      categoria,
     });
 
     res.redirect('/');
   } catch (error) {
+    if (!categoria) {
+      return json.message('no tienes categoria');
+    }
     console.error(error);
     res
       .status(403)
