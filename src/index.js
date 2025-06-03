@@ -56,16 +56,23 @@ app.get('/', async (req, res) => {
   if (token) {
     boolean = true;
   }
-  let stack = [];
   const data = await MediaRepository.getAll();
+  const Array = [];
   for (const item of data) {
     const id_user = item.id_user;
     const titulo = item.titulo;
     const texto = item.texto;
     const descripcion = item.descripcion;
+
+    const Data = {
+      id_user,
+      titulo,
+      texto,
+      descripcion,
+    };
+    Array.push(Data);
   }
-  const context = { stack: [...stack].reverse() };
-  res.render('home', { isLoggedIn: boolean, publicaciones: context });
+  res.render('home', { isLoggedIn: boolean, publicaciones: Array });
 });
 
 app.post('/login', async (req, res) => {
