@@ -1,1 +1,12 @@
-[{"id":"79f31d9e-469e-4601-b3b8-59af1fb3aff5","id_user":"dcb0b3f3-2837-4aad-877a-1d57b16abb2c","titulo":"mvmcv","texto":"mbkj","descripcion":"mvvm","categoria":"romance","createdAt":1749012441325,"_id":"683fcfd90b08d63ab9e2722a"},{"id":"0abecdc9-8cf2-4801-b697-8a1d347250ad","id_user":"dcb0b3f3-2837-4aad-877a-1d57b16abb2c","titulo":"Haiku N1","texto":"Aquel de la voz. que es difícil de oir. quiere el amor","descripcion":"I like this","categoria":"romance","createdAt":1749011943340,"_id":"683fcde70b08d63ab9e27229"}]
+[
+  {
+    "id": "79f31d9e-469e-4601-b3b8-59af1fb3aff5",
+    "id_user": "dcb0b3f3-2837-4aad-877a-1d57b16abb2c",
+    "titulo": "mvmcv",
+    "texto": "mbkj",
+    "descripcion": "mvvm",
+    "categoria": "romance",
+    "createdAt": 1749012441325,
+    "_id": "683fcfd90b08d63ab9e2722a"
+  }
+]
