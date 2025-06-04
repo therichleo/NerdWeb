@@ -65,8 +65,12 @@ app.get('/', async (req, res) => {
     const categoria = item.categoria;
     const tiempo = tiempoTranscurrido(item.createdAt);
 
+    const usuario = UserRepository.getById(id_user);
+    let booleanAnon = (await usuario).anonimato;
+
     const Data = {
-      id_user,
+      username: (await usuario).username,
+      booleanAnon,
       titulo,
       texto,
       descripcion,

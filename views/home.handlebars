@@ -21,7 +21,7 @@
           aria-expanded='false'
           aria-controls='flush-collapseOne'
         >
-          Romance
+          Amor
         </button>
       </h2>
       <div
@@ -51,7 +51,7 @@
           aria-expanded='false'
           aria-controls='flush-collapseTwo'
         >
-          Accordion Item #2
+          Desamor
         </button>
       </h2>
       <div
@@ -59,11 +59,15 @@
         class='accordion-collapse collapse'
         data-bs-parent='#accordionFlushExample'
       >
-        <div class='accordion-body'>Placeholder content for this accordion,
-          which is intended to demonstrate the
-          <code>.accordion-flush</code>
-          class. This is the second item’s accordion body. Let’s imagine this
-          being filled with some actual content.</div>
+        <div class='accordion-body'>
+          {{#each publicaciones}}
+            {{#if (eq categoria 'desamor')}}
+              <h5>{{titulo}}</h5>
+              <p>{{texto}}</p>
+              <small>{{tiempo}}</small>
+            {{/if}}
+          {{/each}}
+        </div>
       </div>
     </div>
     <div class='accordion-item'>
@@ -76,7 +80,7 @@
           aria-expanded='false'
           aria-controls='flush-collapseThree'
         >
-          Accordion Item #3
+          Haikus
         </button>
       </h2>
       <div
@@ -84,13 +88,38 @@
         class='accordion-collapse collapse'
         data-bs-parent='#accordionFlushExample'
       >
-        <div class='accordion-body'>Placeholder content for this accordion,
-          which is intended to demonstrate the
-          <code>.accordion-flush</code>
-          class. This is the third item’s accordion body. Nothing more exciting
-          happening here in terms of content, but just filling up the space to
-          make it look, at least at first glance, a bit more representative of
-          how this would look in a real-world application.</div>
+        <div class='accordion-body'>
+          {{#each publicaciones}}
+            {{#if (eq categoria 'haikus')}}
+              <h5>{{titulo}}</h5>
+              <p>{{texto}}</p>
+              <small>{{tiempo}}</small>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class='accordion-item'>
+      <h2 class='accordion-header'>
+        <button
+          class='accordion-button collapsed'
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#flush-collapseFour'
+          aria-expanded='false'
+          aria-controls='flush-collapseFour'
+        >
+          Another
+        </button>
+      </h2>
+      <div
+        id='flush-collapseFour'
+        class='accordion-collapse collapse'
+        data-bs-parent='#accordionFlushExample'
+      >
+        <div class='accordion-body'>
+          aqui esta lo de dentro
+        </div>
       </div>
     </div>
   </div>
