@@ -9,6 +9,7 @@ import connectLivereload from 'connect-livereload';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cookieParser from 'cookie-parser';
+import { tiempoTranscurrido } from './tiempo.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -62,6 +63,7 @@ app.get('/', async (req, res) => {
     const texto = item.texto;
     const descripcion = item.descripcion;
     const categoria = item.categoria;
+    const tiempo = tiempoTranscurrido(item.createdAt);
 
     const Data = {
       id_user,
@@ -69,6 +71,7 @@ app.get('/', async (req, res) => {
       texto,
       descripcion,
       categoria,
+      tiempo,
     };
     Array.push(Data);
   }

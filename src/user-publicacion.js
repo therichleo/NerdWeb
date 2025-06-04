@@ -13,11 +13,15 @@ const Media = Schema('Media', {
   texto: { type: String, required: true },
   descripcion: { type: String, required: false },
   categoria: { type: String, required: true },
+  createdAt: { type: Number, required: true },
 });
 
 export class MediaRepository {
   static create({ id_user, titulo, texto, descripcion, categoria }) {
     const id = uuidv4();
+    const createdAt = Date.now();
+
+    console.log('createdAt:', createdAt, 'is Date:', createdAt instanceof Date);
 
     return Media.create({
       id,
@@ -26,6 +30,7 @@ export class MediaRepository {
       texto,
       descripcion,
       categoria,
+      createdAt,
     }).save();
   }
 
