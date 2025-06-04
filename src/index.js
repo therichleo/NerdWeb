@@ -79,6 +79,9 @@ app.get('/', async (req, res) => {
     };
     Array.push(Data);
   }
+
+  console.log('TOKEN', token); //Si hay token
+
   if (token) {
     boolean = true;
     const data = jwt.verify(token, LLAVE_SECRETA);
@@ -86,9 +89,10 @@ app.get('/', async (req, res) => {
     return res.render('home', {
       isLoggedIn: boolean,
       publicaciones: Array,
-      username: (await user).username,
+      username2: (await user).username,
     });
   }
+
   res.render('home', {
     isLoggedIn: boolean,
     publicaciones: Array,

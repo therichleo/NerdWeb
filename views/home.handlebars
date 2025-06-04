@@ -7,6 +7,12 @@
   {{/if}}
 </div>
 
+{{#if isLoggedIn}}
+
+  <h1>ESTA LOGEUADO</h1>
+
+{{/if}}
+
 <p style='text-align: center;'>You can now see most recents post right here</p>
 
 <div class='post'>
@@ -60,13 +66,35 @@
         data-bs-parent='#accordionFlushExample'
       >
         <div class='accordion-body'>
-          {{#each publicaciones}}
-            {{#if (eq categoria 'desamor')}}
-              <h5>{{titulo}}</h5>
-              <p>{{texto}}</p>
-              <small>{{tiempo}}</small>
-            {{/if}}
-          {{/each}}
+
+          {{#if isLoggedIn}}
+            {{#each publicaciones}}
+              {{#if (eq categoria 'desamor')}}
+                <h5>{{titulo}}</h5>
+                <p>{{texto}}</p>
+                <small>{{tiempo}}</small>
+                {{#if (eq username username2)}}
+                  <small>mismo perfil</small>
+                {{else}}
+                  {{#if booleanAnon}}
+                    <small>ruta anonima</small>
+                  {{else}}
+                    <small>ruta no anonima</small>
+                  {{/if}}
+                {{/if}}
+              {{/if}}
+            {{/each}}
+          {{else}}
+            {{#each publicaciones}}
+              {{#if (eq categoria 'desamor')}}
+                <h5>{{titulo}}</h5>
+                <p>{{texto}}</p>
+                <small>{{tiempo}}</small>
+                <small>You cant see the perfil cause you are not logged in</small>
+              {{/if}}
+            {{/each}}
+          {{/if}}
+
         </div>
       </div>
     </div>

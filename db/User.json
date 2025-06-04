@@ -1,5 +1,13 @@
 [
   {
+    "id": "ca9b4dcc-7988-43d1-ba91-588354aa8646",
+    "username": "prueba2",
+    "password": "$2b$10$VDvwaVpNRY5bAB9mJnuqkO4oQRCaomvGKqH3nBKkp1/CMF0gcT8uK",
+    "email": "prueba2@gmail.com",
+    "anonimato": false,
+    "_id": "6840c17af1e67b566c22ffcb"
+  },
+  {
     "id": "dcb0b3f3-2837-4aad-877a-1d57b16abb2c",
     "username": "Leonardo.dev",
     "password": "$2b$10$nD88QZRZa7AG4oGm374qxe23Vz9n39XK6JD8T9KmmrRgGPI4EAM0u",
