@@ -53,9 +53,7 @@ app.use('/images', express.static('src/images'));
 app.get('/', async (req, res) => {
   const token = req.cookies.token_de_acceso;
   let boolean = false;
-  if (token) {
-    boolean = true;
-  }
+
   const data = await MediaRepository.getAll();
   const Array = [];
   for (const item of data) {
@@ -74,7 +72,20 @@ app.get('/', async (req, res) => {
     };
     Array.push(Data);
   }
-  res.render('home', { isLoggedIn: boolean, publicaciones: Array });
+  if (token) {
+    boolean = true;
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    const user = UserRepository.getById(data.id);
+    return res.render('home', {
+      isLoggedIn: boolean,
+      publicaciones: Array,
+      username: (await user).username,
+    });
+  }
+  res.render('home', {
+    isLoggedIn: boolean,
+    publicaciones: Array,
+  });
 });
 
 app.post('/login', async (req, res) => {

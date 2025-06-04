@@ -1,9 +1,94 @@
 <div class='container' style='text-align: center; padding: 20px;'>
-  <h1 style='color: #333; margin-bottom: 20px;'>Welcomexss, {{{username}}}!</h1>
+  {{#if isLoggedIn}}
+    <h5 style='margin-top: 20px;'> Welcome {{username}}</h5>
+  {{else}}
+    <h5 style='margin-top: 20px;'> Welcome, dont forget to logged in</h5>
+    <p> You can log in, if you press to profile rout</p>
+  {{/if}}
 </div>
 
-{{#each publicaciones}}
-  <div class='post'>
-    <h4>{{titulo}}</h4>
+<p style='text-align: center;'>You can now see most recents post right here</p>
+
+<div class='post'>
+  <div class='accordion accordion-flush' id='accordionFlushExample'>
+    <div class='accordion-item'>
+      <h2 class='accordion-header'>
+        <button
+          class='accordion-button collapsed'
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#flush-collapseOne'
+          aria-expanded='false'
+          aria-controls='flush-collapseOne'
+        >
+          Romance
+        </button>
+      </h2>
+      <div
+        id='flush-collapseOne'
+        class='accordion-collapse collapse'
+        data-bs-parent='#accordionFlushExample'
+      >
+        <div class='accordion-body'>
+          {{#each publicaciones}}
+            {{#if (eq categoria 'romance')}}
+              <h5>{{titulo}}</h5>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class='accordion-item'>
+      <h2 class='accordion-header'>
+        <button
+          class='accordion-button collapsed'
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#flush-collapseTwo'
+          aria-expanded='false'
+          aria-controls='flush-collapseTwo'
+        >
+          Accordion Item #2
+        </button>
+      </h2>
+      <div
+        id='flush-collapseTwo'
+        class='accordion-collapse collapse'
+        data-bs-parent='#accordionFlushExample'
+      >
+        <div class='accordion-body'>Placeholder content for this accordion,
+          which is intended to demonstrate the
+          <code>.accordion-flush</code>
+          class. This is the second item’s accordion body. Let’s imagine this
+          being filled with some actual content.</div>
+      </div>
+    </div>
+    <div class='accordion-item'>
+      <h2 class='accordion-header'>
+        <button
+          class='accordion-button collapsed'
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#flush-collapseThree'
+          aria-expanded='false'
+          aria-controls='flush-collapseThree'
+        >
+          Accordion Item #3
+        </button>
+      </h2>
+      <div
+        id='flush-collapseThree'
+        class='accordion-collapse collapse'
+        data-bs-parent='#accordionFlushExample'
+      >
+        <div class='accordion-body'>Placeholder content for this accordion,
+          which is intended to demonstrate the
+          <code>.accordion-flush</code>
+          class. This is the third item’s accordion body. Nothing more exciting
+          happening here in terms of content, but just filling up the space to
+          make it look, at least at first glance, a bit more representative of
+          how this would look in a real-world application.</div>
+      </div>
+    </div>
   </div>
-{{/each}}
+</div>
