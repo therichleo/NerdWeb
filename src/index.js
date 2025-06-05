@@ -41,7 +41,7 @@ app.engine(
   'handlebars',
   engine({
     helpers: {
-      eq: (a, b) => a === b,
+      eq: (a, b) => String(a) === String(b),
     },
   })
 );
@@ -65,11 +65,12 @@ app.get('/', async (req, res) => {
     const categoria = item.categoria;
     const tiempo = tiempoTranscurrido(item.createdAt);
 
-    const usuario = UserRepository.getById(id_user);
-    let booleanAnon = (await usuario).anonimato;
+    const usuario = await UserRepository.getById(id_user);
+    let booleanAnon = usuario.anonimato;
 
     const Data = {
-      username: (await usuario).username,
+      id_user,
+      username: usuario.username,
       booleanAnon,
       titulo,
       texto,
@@ -80,16 +81,15 @@ app.get('/', async (req, res) => {
     Array.push(Data);
   }
 
-  console.log('TOKEN', token); //Si hay token
-
   if (token) {
     boolean = true;
-    const data = jwt.verify(token, LLAVE_SECRETA);
-    const user = UserRepository.getById(data.id);
+    const datos = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(datos.id);
     return res.render('home', {
       isLoggedIn: boolean,
       publicaciones: Array,
-      username2: (await user).username,
+      user_id: user.id,
+      username2: user.username,
     });
   }
 

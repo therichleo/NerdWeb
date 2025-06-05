@@ -1,17 +1,12 @@
 <div class='container' style='text-align: center; padding: 20px;'>
   {{#if isLoggedIn}}
-    <h5 style='margin-top: 20px;'> Welcome {{username}}</h5>
+    <h5 style='margin-top: 20px;'> Welcome Again {{username2}}</h5>
   {{else}}
     <h5 style='margin-top: 20px;'> Welcome, dont forget to logged in</h5>
     <p> You can log in, if you press to profile rout</p>
   {{/if}}
 </div>
 
-{{#if isLoggedIn}}
-
-  <h1>ESTA LOGEUADO</h1>
-
-{{/if}}
 
 <p style='text-align: center;'>You can now see most recents post right here</p>
 
@@ -72,8 +67,9 @@
               {{#if (eq categoria 'desamor')}}
                 <h5>{{titulo}}</h5>
                 <p>{{texto}}</p>
+                <p>{{username}}</p>
                 <small>{{tiempo}}</small>
-                {{#if (eq username username2)}}
+                {{#if (eq ../user_id id_user)}}
                   <small>mismo perfil</small>
                 {{else}}
                   {{#if booleanAnon}}
