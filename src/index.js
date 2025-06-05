@@ -99,6 +99,11 @@ app.get('/', async (req, res) => {
   });
 });
 
+app.get('/contacto', (req, res) => {
+  console.log('SI ENTRA A RUTA DE CONTACTO');
+  return res.render('contact');
+});
+
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
