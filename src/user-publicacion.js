@@ -20,8 +20,6 @@ export class MediaRepository {
     const id = uuidv4();
     const createdAt = Date.now();
 
-    console.log('createdAt:', createdAt, 'is Date:', createdAt instanceof Date);
-
     return Media.create({
       id,
       id_user,

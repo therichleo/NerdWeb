@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { PORT, LLAVE_SECRETA } from './config.js';
 import { UserRepository } from './user-repository.js';
 import { MediaRepository } from './user-publicacion.js';
+import { ContactRepository } from './user-contact.js';
 import { engine } from 'express-handlebars';
 import livereload from 'livereload';
 import connectLivereload from 'connect-livereload';
@@ -99,11 +100,27 @@ app.get('/', async (req, res) => {
   });
 });
 
-app.post('/contactologged', (req, res) => {
-  const { message } = req.body;
-});
+app.post('/contacto', async (req, res) => {
+  const token = req.cookies.token_de_acceso;
+  if (token) {
+    const { text } = req.body;
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(data.id);
 
-app.post('/contactonologged', (req, res) => {});
+    await ContactRepository.create({
+      email: user.email,
+      text,
+    });
+
+    return res.redirect('/');
+  }
+  const { email, text } = req.body;
+  await ContactRepository.create({
+    email,
+    text,
+  });
+  return res.redirect('/');
+});
 
 app.get('/contacto', async (req, res) => {
   const token = req.cookies.token_de_acceso;
