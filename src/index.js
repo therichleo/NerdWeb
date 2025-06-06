@@ -99,6 +99,12 @@ app.get('/', async (req, res) => {
   });
 });
 
+app.post('/contactologged', (req, res) => {
+  const { message } = req.body;
+});
+
+app.post('/contactonologged', (req, res) => {});
+
 app.get('/contacto', async (req, res) => {
   const token = req.cookies.token_de_acceso;
   let boolean = false;

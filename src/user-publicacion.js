@@ -1,4 +1,3 @@
-// user-publicacion.js
 import dbLocal from 'db-local';
 import { v4 as uuidv4 } from 'uuid'; // Este se usa para generar id unico
 import path from 'path';
