@@ -1,2 +1,43 @@
-<h1>Ruta de contacto</h1>
-asdasd
+<link rel='stylesheet' href='/css/contactbox.css' />
+
+{{#if isLoggedIn}}
+
+  <div class='container text-center' style='margin-top: 5px;'>
+    <div class='row'>
+      <div
+        class='col-md-6 offset-md-3'
+        style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
+      >
+        <h5>Aqui podras enviar un formulario de contacto</h5>
+        <p>{{username}}</p>
+        <p>{{email}}</p>
+        <p>{{id}}</p>
+        <form action='/contactologged' method='post'>
+          <label for='text'>Mensaje</label>
+          <input type='text' name='message' />
+          <button type='submit'>Entregar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{{else}}
+
+  <div class='container text-center' style='margin-top: 5px;'>
+    <div class='row'>
+      <div
+        class='col-md-6 offset-md-3'
+        style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
+      >
+        <h5>Aqui podras enviar un formulario de contacto</h5>
+
+        <form action='/contactonologged' method='post'>
+          <label for='text'>Mensaje</label>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{{/if}}

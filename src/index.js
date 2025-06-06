@@ -99,9 +99,23 @@ app.get('/', async (req, res) => {
   });
 });
 
-app.get('/contacto', (req, res) => {
-  console.log('SI ENTRA A RUTA DE CONTACTO');
-  return res.render('contact');
+app.get('/contacto', async (req, res) => {
+  const token = req.cookies.token_de_acceso;
+  let boolean = false;
+
+  if (token) {
+    boolean = true;
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(data.id);
+    return res.render('contact', {
+      isLoggedIn: boolean,
+      email: user.email,
+      username: user.username,
+      id: user.id,
+    });
+  }
+
+  return res.render('contact', { isLoggedIn: boolean });
 });
 
 app.post('/login', async (req, res) => {
