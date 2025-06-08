@@ -7,16 +7,18 @@ const Contact = Schema('Contact', {
   id: { type: String, required: true },
   email: { type: String, required: true },
   text: { type: String, required: true },
+  is_user: { type: Boolean, required: true },
 });
 
 export class ContactRepository {
-  static create({ email, text }) {
+  static create({ email, text, boolean }) {
     const id = uuidv4();
 
     return Contact.create({
       id,
       email,
       text,
+      is_user: boolean,
     }).save();
   }
 }

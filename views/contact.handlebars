@@ -11,7 +11,7 @@
         <h5>Aqui podras enviar un formulario de contacto</h5>
         <p>{{username}}</p>
         <p>{{email}}</p>
-        <p>{{id}}</p>
+        <p>Your id is:{{id}}</p>
         <form action='/contacto' method='post'>
           <label for='text'>Mensaje</label>
           <input type='text' name='text' />
@@ -30,9 +30,13 @@
         class='col-md-6 offset-md-3'
         style='box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
       >
-        <h5>Aqui podras enviar un formulario de contacto</h5>
+        <h5>We watch you are not user</h5>
+        <p>So, lets try</p>
 
-        <form action='/contactonologged' method='post'>
+        <form action='/contacto' method='post'>
+          <label for='email'>Email</label>
+          <input type='email' name='email' />
+
           <label for='text'>Mensaje</label>
           <input type='text' name='text' />
           <button type='submit'>Entregar</button>

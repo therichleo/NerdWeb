@@ -39,7 +39,10 @@
                 <p>{{texto}}</p>
                 <small>{{tiempo}}</small>
                 {{#if (eq ../user_id id_user)}}
+                  <a href="/profile"></a>
+
                   <small>mismo perfil</small>
+
                 {{else}}
                   {{#if booleanAnon}}
                     <small>ruta anonima</small>
@@ -182,7 +185,33 @@
         data-bs-parent='#accordionFlushExample'
       >
         <div class='accordion-body'>
-          aqui esta lo de dentro
+          {{#if isLoggedIn}}
+            {{#each publicaciones}}
+              {{#if (eq categoria 'another')}}
+                <h5>{{titulo}}</h5>
+                <p>{{texto}}</p>
+                <small>{{tiempo}}</small>
+                {{#if (eq ../user_id id_user)}}
+                  <a href="/profile">Ruta a perfil</a>
+                {{else}}
+                  {{#if booleanAnon}}
+                    <a href="/anonprofile/:token">Ruta anonima</a>
+                  {{else}}
+                    <a href="/:username">Ruta perfil</a>
+                  {{/if}}
+                {{/if}}
+              {{/if}}
+            {{/each}}
+          {{else}}
+            {{#each publicaciones}}
+              {{#if (eq categoria 'another')}}
+                <h5>{{titulo}}</h5>
+                <p>{{texto}}</p>
+                <small>{{tiempo}}</small>
+                <small>You cant see the perfil cause you are not logged in</small>
+              {{/if}}
+            {{/each}}
+          {{/if}}
         </div>
       </div>
     </div>

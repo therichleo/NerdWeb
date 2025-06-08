@@ -102,7 +102,9 @@ app.get('/', async (req, res) => {
 
 app.post('/contacto', async (req, res) => {
   const token = req.cookies.token_de_acceso;
+  let boolean = false;
   if (token) {
+    boolean = true;
     const { text } = req.body;
     const data = jwt.verify(token, LLAVE_SECRETA);
     const user = await UserRepository.getById(data.id);
@@ -110,6 +112,7 @@ app.post('/contacto', async (req, res) => {
     await ContactRepository.create({
       email: user.email,
       text,
+      boolean,
     });
 
     return res.redirect('/');
@@ -118,6 +121,7 @@ app.post('/contacto', async (req, res) => {
   await ContactRepository.create({
     email,
     text,
+    boolean,
   });
   return res.redirect('/');
 });
@@ -143,7 +147,6 @@ app.get('/contacto', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await UserRepository.login({ email, password });
     const token = jwt.sign({ id: user.id }, LLAVE_SECRETA, {
