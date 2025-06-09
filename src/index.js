@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cookieParser from 'cookie-parser';
 import { tiempoTranscurrido } from './tiempo.js';
+import { InteractRepository } from './user-interact.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -111,6 +112,33 @@ app.get('/profile', async (req, res) => {
   try {
     const data = jwt.verify(token, LLAVE_SECRETA);
     const user = await UserRepository.getById(data.id);
+
+    /*
+    const interacciones = await InteractRepository.getByUserId(user.id);
+    const arr = [];
+    for (const interaccion of interacciones) {
+      const userFollower = await UserRepository.getById(
+        interaccion.userIDFollower
+      );
+      const userFollow = await UserRepository.getById(interaccion.userIDFollow);
+
+      let follower = userFollower.username;
+      let follow = userFollow.username;
+
+      if (userFollower.anonimato) {
+        follower = 'USER FOLLOWER ANONIMO';
+      }
+      if (userFollow.anonimato) {
+        follow = 'USER FOLLOW ANONIMO';
+      }
+
+      const UserInteractions = {
+        follow,
+        follower,
+      };
+      arr.push(UserInteractions);
+    }
+    */
 
     res.render('profile', {
       isLoggedIn: boolean,
