@@ -1,9 +1,9 @@
 [
   {
-    "id": "d54b184e-5426-416f-8a5d-ce44b83535e9",
-    "email": "asdas@gmail.com",
-    "text": "asdasd",
-    "is_user": false,
-    "_id": "684520dbbeffd9b47ab697ba"
+    "id": "557ba652-53f9-4cb3-8710-aeef731299f5",
+    "email": "gordo@teton.com",
+    "text": "asdas",
+    "is_user": true,
+    "_id": "684537df051bbabb428fc8df"
   }
 ]

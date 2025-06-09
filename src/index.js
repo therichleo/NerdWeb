@@ -100,6 +100,31 @@ app.get('/', async (req, res) => {
   });
 });
 
+app.get('/profile', async (req, res) => {
+  const token = req.cookies.token_de_acceso;
+  let boolean = false;
+
+  if (token) {
+    boolean = true;
+  }
+
+  try {
+    const data = jwt.verify(token, LLAVE_SECRETA);
+    const user = await UserRepository.getById(data.id);
+
+    res.render('profile', {
+      isLoggedIn: boolean,
+      username: user.username,
+      email: user.email,
+      anonimato: user.anonimato,
+    }); //data contiene id, con id llamamos a getById y conseguimos mas informacion directa
+  } catch (error) {
+    res.render('profile', {
+      isLoggedIn: boolean,
+    });
+  }
+});
+
 app.post('/contacto', async (req, res) => {
   const token = req.cookies.token_de_acceso;
   let boolean = false;
@@ -141,7 +166,6 @@ app.get('/contacto', async (req, res) => {
       id: user.id,
     });
   }
-
   return res.render('contact', { isLoggedIn: boolean });
 });
 
@@ -202,31 +226,6 @@ app.get('/register', (req, res) => {
 app.post('/logout', (req, res) => {
   res.clearCookie('token_de_acceso');
   res.redirect('/');
-});
-
-app.get('/profile', async (req, res) => {
-  const token = req.cookies.token_de_acceso;
-  let boolean = false;
-
-  if (token) {
-    boolean = true;
-  }
-
-  try {
-    const data = jwt.verify(token, LLAVE_SECRETA);
-    const user = await UserRepository.getById(data.id);
-
-    res.render('profile', {
-      isLoggedIn: boolean,
-      username: user.username,
-      email: user.email,
-      anonimato: user.anonimato,
-    }); //data contiene id, con id llamamos a getById y conseguimos mas informacion directa
-  } catch (error) {
-    res.render('profile', {
-      isLoggedIn: boolean,
-    });
-  }
 });
 
 app.post('/publicar', async (req, res) => {
@@ -310,6 +309,8 @@ app.get('/publicaciones', async (req, res) => {
     publicaciones: arrayData,
   });
 });
+
+app.post('/seguir', (req, res) => {});
 
 app.get('/anonprofile/:token', async (req, res) => {
   const { token } = req.params;
