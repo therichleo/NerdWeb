@@ -14,7 +14,7 @@ const InteractArreglado = Schema('InteractArreglado', {
   userIDFollowerArray: { type: Array, required: false },
 });
 
-export class FollowerRepository {
+export class InteractRepository {
   static create({ userID, userIDFollow, userIDFollower }) {
     return Interact.create({
       userID,
@@ -37,4 +37,9 @@ export class FollowerRepository {
       userIDFollowerArray,
     });
   }
+
+  static getByUserId(userID){
+    return Interact.find(userID);
+  }
+
 }
