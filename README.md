@@ -33,7 +33,7 @@ Cookies – For session management and access control
 ✅ Login and registration system functional
 ✅ Anonymous and public profile modes implemented
 🔄 In progress: Route restructuring and expansion toward full social features
-🔜 Coming soon:
+🔜 Coming Soon
 🤝 Followers/friends system
 💬 Comments and likes
 🔔 Notifications
@@ -41,9 +41,3 @@ Cookies – For session management and access control
 
 The authentication system uses JWT and secure cookies to ensure safe user sessions.
 Additional validation and security layers will be implemented as the platform evolves.
-
-
-
-
-
-
