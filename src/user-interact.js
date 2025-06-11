@@ -4,42 +4,51 @@ const { Schema } = new dbLocal({ path: './db' });
 
 const Interact = Schema('Interact', {
   userID: { type: String, required: true },
-  userIDFollower: { type: String, required: false },
-  userIDFollow: { type: String, required: false },
+  userIDFollow: { type: Object, required: false },
+  userIDFollower: { type: Object, required: false },
 });
 
-const InteractArreglado = Schema('InteractArreglado', {
-  userID: { type: String, required: true },
-  userIDFollowArray: { type: Array, required: false },
-  userIDFollowerArray: { type: Array, required: false },
-});
+/*
+TEORIA:
+
+VERIFICAMOS SI EL SEGUIDOR Y EL SEGUIDO ESTAN DENTRO DE LA BASE DE DATOS
+SI ESTAN DENTRO -> SE PASA DE LARGO
+SI NO ESTAN DENTRO -> SE CREAN SUS USUARIOS DENTRO DE LA BASE DE DATOS
+
+LUEGO
+USER1: SEGUIDOR
+USER2: SEGUIDO
+
+USER1: SIGUE A USER2
+
+USER2: USER 2 LO SIGUE
+*/
 
 export class InteractRepository {
-  static create({ userID, userIDFollow, userIDFollower }) {
-    return Interact.create({
-      userID,
-      userIDFollow,
-      userIDFollower,
-    });
-  }
-
-  static ArreglarJson({ userID }) {
-    const data = Interact.find({ userID });
-    const ArrFollows = [];
-    const ArrFollowers = [];
-    for (const interacciones of data) {
-      ArrFollows.push(interacciones.userIDFollows);
-      ArrFollowers.push(interacciones.userIDFollower);
+  static async follow({ seguidorID, seguidoID }) {
+    let registroSeguidor = await Interact.findOne({ userID: seguidorID });
+    if (!registroSeguidor) {
+      registroSeguidor = await Interact.create({
+        userID,
+        userIDfollow: {},
+        userIDFollower: {},
+      });
     }
-    return InteractArreglado.create({
-      userID,
-      userIDFollowArray,
-      userIDFollowerArray,
-    });
-  }
 
-  static getByUserId(userID){
-    return Interact.find(userID);
-  }
+    let registroSeguido = await Interact.findOne({ userID: seguidoID });
+    if (!registroSeguido) {
+      registroSeguido = await Interact.create({
+        userID,
+        userIDfollow: {},
+        userIDFollower: {},
+      });
+    }
 
+    registroSeguidor.userIDFollow[seguidoID] = true;
+    registroSeguido.userIDFollower[seguidorID] = true;
+
+    await registroSeguidor.save();
+    await registroSeguido.save();
+    return true;
+  }
 }
