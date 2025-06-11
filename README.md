@@ -10,15 +10,23 @@ Create public or anonymous profiles
 Post content
 Interact with others
 Maintain privacy, if they so choose
+
 🚀 Main Features
 
 📜 Publishing poems and writings
+
 🔐 Registration and login with authentication via tokens and cookies
+
 👤 User profiles:
+
 🕶️ Anonymous profile: Interaction without revealing identity
+
 🌐 Public profile: Interaction with a visible and personalized profile
+
 🔄 Dynamic switching between anonymous and public profiles
+
 🧱 Architecture ready to scale into full social network capabilities
+
 🛠️ Technologies Used
 
 Node.js – Main server engine
