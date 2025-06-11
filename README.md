@@ -1,6 +1,6 @@
-#📚 NerdWEB: From Poetry Forum to Social Network
+# 📚 NerdWEB: From Poetry Forum to Social Network
 
-##📝 Project Description:
+## 📝 Project Description:
 
 NerdWEB began as a simple forum-style website where users could upload and share poems. However, over time, I came up with the idea of turning it into something more comprehensive: a social network focused on writing and anonymity.
 
@@ -14,7 +14,7 @@ Interact with others
 
 Maintain privacy, if they so choose
 
-##🚀 Main Features:
+## 🚀 Main Features:
 
 📜 Publishing poems and writings
 
@@ -30,7 +30,7 @@ Maintain privacy, if they so choose
 
 🧱 Architecture ready to scale into full social network capabilities
 
-##🛠️ Technologies Used:
+## 🛠️ Technologies Used:
 
 Node.js – Main server engine
 
@@ -44,7 +44,7 @@ JWT (JSON Web Tokens) – For secure user authentication
 
 Cookies – For session management and access control
 
-##🚧 Current State of Development:
+## 🚧 Current State of Development:
 
 ✅ Database logic implemented
 
