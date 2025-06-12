@@ -6,3 +6,8 @@
     <p>{{texto}}</p>
   </div>
 {{/each}}
+
+<form action='/follow' method='post'>
+  <input type='text' name='username' value='{{username}}' />
+  <button type='submit'>Seguir</button>
+</form>

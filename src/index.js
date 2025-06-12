@@ -12,6 +12,7 @@ import { dirname } from 'path';
 import cookieParser from 'cookie-parser';
 import { tiempoTranscurrido } from './tiempo.js';
 import { InteractRepository } from './user-interact.js';
+import { error } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -340,11 +341,22 @@ app.get('/publicaciones', async (req, res) => {
 
 app.post('/follow', async (req, res) => {
   const token = req.cookies.token_de_acceso;
-  const data = jwt.verify(token, LLAVE_SECRETA);
-  const user = await UserRepository.getById(data.id);
-  const seguidorID = user.id;
 
-  const { seguidoID } = req.body;
+  if (!token) {
+    return error.message('no tienes token pa');
+  }
+
+  const dataFollower = jwt.verify(token, LLAVE_SECRETA);
+  const userSeguidor = await UserRepository.getById(dataFollower.id);
+  const userFollower = userSeguidor.id;
+
+  const { username } = req.body;
+  const userFollow = await UserRepository.getByUsername({ username });
+
+  await InteractRepository.follow({
+    seguidorID: userFollower,
+    seguidoID: userFollow,
+  });
 });
 
 app.get('/anonprofile/:token', async (req, res) => {
