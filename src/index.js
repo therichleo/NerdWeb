@@ -338,7 +338,14 @@ app.get('/publicaciones', async (req, res) => {
   });
 });
 
-app.post('/seguir', (req, res) => {});
+app.post('/follow', async (req, res) => {
+  const token = req.cookies.token_de_acceso;
+  const data = jwt.verify(token, LLAVE_SECRETA);
+  const user = await UserRepository.getById(data.id);
+  const seguidorID = user.id;
+
+  const { seguidoID } = req.body;
+});
 
 app.get('/anonprofile/:token', async (req, res) => {
   const { token } = req.params;
@@ -401,6 +408,4 @@ app.use((req, res) => {
   res.status(404).send('<h1>404</>');
 });
 
-
-
-console.log('MALAFAMA WEKARDOFAITHER ANASHEI')
+console.log('MALAFAMA WEKARDOFAITHER ANASHEI');
